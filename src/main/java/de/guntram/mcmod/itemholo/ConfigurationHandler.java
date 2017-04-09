@@ -11,6 +11,7 @@ public class ConfigurationHandler {
 
     private Configuration config;
     private String configFileName;
+    private boolean itemTitles, mobTitles;
 
     public static ConfigurationHandler getInstance() {
         if (instance==null)
@@ -35,10 +36,8 @@ public class ConfigurationHandler {
     }
     
     private void loadConfig() {
-//        allowUpload=config.getBoolean("Allow Upload", Configuration.CATEGORY_CLIENT, allowUpload, "Allow Upload to central database");
-//        allowDownload=config.getBoolean("Allow Download", Configuration.CATEGORY_CLIENT, allowDownload, "Allow Download from central database (only if Upload is enabled as well)");
-//        saveEveryXMinutes=config.getInt("Save every X minutes", Configuration.CATEGORY_CLIENT, 1, 1, 60, "How often sign data will be saved locally");
-//        uploadEveryXMinutes=config.getInt("Upload every X minutes", Configuration.CATEGORY_CLIENT, 5, 5, 60, "How often sign data will be uploaded");
+        itemTitles=config.getBoolean("Show item titles", Configuration.CATEGORY_CLIENT, true, "Show titles for items");
+        mobTitles=config.getBoolean("Show mob titles", Configuration.CATEGORY_CLIENT, true, "Show mob titles and health");
         if (config.hasChanged())
             config.save();
     }
@@ -50,4 +49,7 @@ public class ConfigurationHandler {
     public static String getConfigFileName() {
         return getInstance().configFileName;
     }
+    
+    public static boolean showItemTitles() { return getInstance().itemTitles; }
+    public static boolean showMobTitles() { return getInstance().mobTitles; }
 }
