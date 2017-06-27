@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
         version = ItemHolo.VERSION,
 	clientSideOnly = true, 
 	guiFactory = "de.guntram.mcmod.itemholo.GuiFactory",
-	acceptedMinecraftVersions = "[1.11.2]"
+	acceptedMinecraftVersions = "[1.12]"
 )
 
 public class ItemHolo
@@ -37,7 +37,7 @@ public class ItemHolo
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        pendingItems=new HashMap<Entity, Integer>();
+        pendingItems=new HashMap<>();
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -66,10 +66,10 @@ public class ItemHolo
             if (entity.isDead)
                 pendingItems.remove(entity);
             else if (entity instanceof EntityItem
-            && ((EntityItem)entity).getEntityItem().getItem()==Items.AIR) {
-                continue;
+                 && ((EntityItem)entity).getItem().getItem()==Items.AIR) {
+                /* do nothing */
             } else if (entity instanceof EntityItem) {
-                ItemStack stack=((EntityItem)entity).getEntityItem();
+                ItemStack stack=((EntityItem)entity).getItem();
                 int count=stack.getCount();
                 if (pendingItems.get(entity)!=count) {
                     Item item=stack.getItem();
