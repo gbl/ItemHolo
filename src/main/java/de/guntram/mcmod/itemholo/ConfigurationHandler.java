@@ -12,6 +12,7 @@ public class ConfigurationHandler {
     private Configuration config;
     private String configFileName;
     private boolean itemTitles, mobTitles;
+    private String itemPattern, mobPattern;
 
     public static ConfigurationHandler getInstance() {
         if (instance==null)
@@ -38,6 +39,8 @@ public class ConfigurationHandler {
     private void loadConfig() {
         itemTitles=config.getBoolean("Show item titles", Configuration.CATEGORY_CLIENT, true, "Show titles for items");
         mobTitles=config.getBoolean("Show mob titles", Configuration.CATEGORY_CLIENT, true, "Show mob titles and health");
+        itemPattern=config.getString("Item Search", Configuration.CATEGORY_CLIENT, "", "Search for this expression in items");
+        mobPattern=config.getString("Mob Search", Configuration.CATEGORY_CLIENT, "", "Search for this expression in mob names");
         if (config.hasChanged())
             config.save();
     }
@@ -52,4 +55,6 @@ public class ConfigurationHandler {
     
     public static boolean showItemTitles() { return getInstance().itemTitles; }
     public static boolean showMobTitles() { return getInstance().mobTitles; }
+    public static String getItemPattern() { return getInstance().itemPattern; }
+    public static String getMobPattern() { return getInstance().mobPattern; }
 }
